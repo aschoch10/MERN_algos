@@ -29,10 +29,10 @@ const expected2 = [
 
 obj1.__proto__ = obj2;
 
-function entries(obj) {
+function entries1(obj) {
     const finalArray = [];
     for (key in obj){
-        //if it is already in the area
+        //checks the original object key, so that it doesn't push all the key value pairs
         if (obj.hasOwnProperty(key)){
             finalArray.push([key , obj[key]]);
         }
@@ -40,8 +40,8 @@ function entries(obj) {
         return finalArray
 }
 
-console.log(entries(obj1));
-console.log(entries(obj2));
+console.log(entries1(obj1));
+console.log(entries1(obj2));
 
 // ==================================================
 
@@ -75,7 +75,7 @@ const expectedB =
 function insert(tableName, columnValuePairs) {
     //starts off the string with the beginning of the final string bc it will always have that 
     finalString = `INSERT INTO ${tableName} (`
-    let entries = entries(columnValuePairs)
+    let entries = entries1(columnValuePairs)
     // const entries = Object.entries(columnValuePairs)
     //iterate through the string 
     for(let i=0; i<entries.length; i++){
@@ -100,3 +100,4 @@ function insert(tableName, columnValuePairs) {
 
 console.log(insert(table, insertData1));
 // console.log(insert(table, insertData2)); // BONUS
+console.log("Hello")
