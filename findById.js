@@ -38,17 +38,22 @@ const students = [
 ];
 
 function findByIdAndUpdate(id, updatedVals, collection) { 
+    // The following traverses the array of objects.
     for(obj of collection){
+        // Checks if the if provided as an argument matches with an id in each object.
         if(obj["id"] == id){
+            // The following traverses the keys in updatedVals 
             for(key in updatedVals){
+                // The following checks if the object has the key from above line
                 if(obj.hasOwnProperty(key)){
+                    // The following sets the value of the key in the object to the updatedVals's value
                     obj[key] = updatedVals[key]
                 }
             }
+            // returns the object with the updated value
             return obj;
         }
-
-    }
+    } 
     return null;
 }
 
