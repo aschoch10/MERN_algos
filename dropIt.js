@@ -23,8 +23,36 @@ const callback3 = (elem) => false;
 const expected3 = [];
 
 
-function dropIt1(arr, callback) {}
+function dropIt1(arr, callback) { }
 
 console.log(dropIt(arr1, callback2));
 console.log(dropIt(arr2, callback2));
 console.log(dropIt(arr3, callback2));
+
+function dropIt2(arr, callback) {
+    // Base Case
+    if (arr.length < 1) {
+        return [];
+    }
+
+    // If Condition is false
+    if (!callback(arr[0])) {
+        // remove first item in array
+        arr.shift();
+
+        console.log("*** Recursion happening ***", arr);
+        dropIt(arr, callback);
+    }
+    return arr;
+}
+
+function dropIt3(arr, callback) {
+    let i = 0;
+    while (callback(arr[i]) == false) {
+        arr.shift()
+        if (arr.length == 0) {
+            break
+        }
+    }
+    return arr
+}
