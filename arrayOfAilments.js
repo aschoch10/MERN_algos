@@ -87,7 +87,7 @@ function webMD(ailments, meds) {
         }
     }
     return results;
- }
+}
 
 
 console.log(webMD(["pain"], medications));
