@@ -7,6 +7,8 @@ Determine whether or not it is possible for the string's characters to be
 rearranged into a palindrome.
 */
 
+const { off } = require("process");
+
 // racecar
 
 
@@ -45,9 +47,11 @@ const expected6 = false;
 
 /* 
 For a string to be able to be re-ordered into a palindrome
+
 It must have an even occurrence of every character
 Unless it is odd length, then it can have 1 character that
 can have an odd number of occurrences.
+
 Another way to look at it would be, if you cancel out ever char that has a pair,
 it can be a palindrome if you are left with 0 or 1 char remaining:
     - "dad" the "d" cancels with itself to leave "a"
@@ -55,16 +59,41 @@ it can be a palindrome if you are left with 0 or 1 char remaining:
     - "daam" the "a" cancels with itself leaving "dm", more than 1 char remaining, can't be palindrome
 */
 
-function canBecomePalindrome(str) { }
+function canBecomePalindrome(str) {
+    let x = {}
+    let oddCounter = 0
+    for (i = 0; i < str.length; i++) {
+        if (x.hasOwnProperty(str[i])) {
+            x[str[i]] += 1
+        } else {
+            x[str[i]] = 1
+        }
+    }
+    // console.log(x);
+    let findVals = Object.values(x);
+    // console.log(findVals);
+    for (val of findVals) {
+        if (val % 2 == 1) {
+            oddCounter += 1
+        }
+    } if (oddCounter <= 1) {
+        return true
+    } else {
+        return false
+    }
+}
 
-canBecomePalindrome(str1);
-canBecomePalindrome(str2);
-canBecomePalindrome(str3);
-canBecomePalindrome(str4);
-canBecomePalindrome(str5);
 
-// console.log(canBecomePalindrome(str1) === expected1); // false
-// console.log(canBecomePalindrome(str2) === expected2); // true
-// console.log(canBecomePalindrome(str3) === expected3); // true
-// console.log(canBecomePalindrome(str4) === expected4); // true
-// console.log(canBecomePalindrome(str5) === expected5); // true
+// canBecomePalindrome(str1);
+// canBecomePalindrome(str2);
+// canBecomePalindrome(str3);
+// canBecomePalindrome(str4);
+// canBecomePalindrome(str5);
+// canBecomePalindrome(str6);
+
+console.log(canBecomePalindrome(str1) === expected1); // false
+console.log(canBecomePalindrome(str2) === expected2); // true
+console.log(canBecomePalindrome(str3) === expected3); // true
+console.log(canBecomePalindrome(str4) === expected4); // true
+console.log(canBecomePalindrome(str5) === expected5); // true
+console.log(canBecomePalindrome(str6)); // false
