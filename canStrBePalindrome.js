@@ -1,99 +1,100 @@
 /* 
-Interview Question:
-Given a string
-return whether or not it's possible to make a palindrome out of the string's characters
-What is it about a string that makes it possible for it to be a palindrome?
-Determine whether or not it is possible for the string's characters to be
-rearranged into a palindrome.
+ ██╗ ██╗ 
+████████╗
+╚██╔═██╔╝
+████████╗
+╚██╔═██╔╝
+ ╚═╝ ╚═╝ 
+         
+    Given two 🎻 strings S and T containing only lowercase letters and "#" characters,
+    return if they are equal when both are typed into empty text editors.
+    👉 '#' character means a 'backspace' character.
+    i.e., after processing the backspaces, are the two strings equal?
+    return true or false
+    Ninja Bonus: solve in O(n) time
 */
 
-const { off } = require("process");
 
-// racecar
+// aclp
+// ad#clp
 
+//          v
+const S1 = "ab#c";
+// a -> ab -> a -> ac
+//          v
+const T1 = "ad#c";
+// a -> ad -> a -> ac
+const expected1 = true;
+// Explanation: Both S and T become "ac"
 
-const str1 = "";
-const expected1 = false;
+//             v
+const S2 = "ab##";
+// ["a", "b"]
+// "str1"
+// a -> ab -> a -> ""
 
-const str2 = "a";
+const T2 = "c#d#";
+// []
+// "str2"
+// c -> "" -> d -> "" 
 const expected2 = true;
+// Explanation: Both S and T become ""
 
-const str3 = "ddaa";
+const S3 = "a##c";
+// a -> "" -> "" -> c
+const T3 = "#a#c";
+// "" -> a -> "" -> c
 const expected3 = true;
-// Explanation: "daad" or "adda"
+// Explanation: Both S and T become "c"
 
-const str4 = "dda";
-const expected4 = true;
-// Explanation: "dad"
+const S4 = "a#c";
+// a -> "" -> c
+const T4 = "b";
+// b
+const expected4 = false;
+// Explanation: S becomes "c" while T becomes "b".
 
-//            V
-const str5 = "aaadd";
-const expected5 = true;
-// Explanation: "daaad"
-
-
-// check length?
-// {
-//     a: 3,
-//     d: 2
-// }
-// for in 
-// is Odd flag?
-// check odds/even? length?
-
-
-const str6 = "abc";
-const expected6 = false;
-
-/* 
-For a string to be able to be re-ordered into a palindrome
-
-It must have an even occurrence of every character
-Unless it is odd length, then it can have 1 character that
-can have an odd number of occurrences.
-
-Another way to look at it would be, if you cancel out ever char that has a pair,
-it can be a palindrome if you are left with 0 or 1 char remaining:
-    - "dad" the "d" cancels with itself to leave "a"
-    - "daad" the "d" and "a" cancel with itself to leave nothing
-    - "daam" the "a" cancels with itself leaving "dm", more than 1 char remaining, can't be palindrome
-*/
-
-function canBecomePalindrome(str) {
-    let x = {}
-    let oddCounter = 0
-    for (i = 0; i < str.length; i++) {
-        if (x.hasOwnProperty(str[i])) {
-            x[str[i]] += 1
-        } else {
-            x[str[i]] = 1
+function backspaceStringCompare(S, T) {
+    //create new array 
+    let arrayS = []
+    let arrayT = []
+    //iterate through the string 
+    let i = 0
+    while (i < S.length || i < T.length) {
+        // console.log("S"+ S[i])
+        // console.log("T"+ T[i])
+        if (S[i] !== "#") {
+            //if value@ i is char, push to array 
+            arrayS.push(S[i])
         }
-    }
-    // console.log(x);
-    let findVals = Object.values(x);
-    // console.log(findVals);
-    for (val of findVals) {
-        if (val % 2 == 1) {
-            oddCounter += 1
+        else if (S[i] === "#") {
+            arrayS.pop()
         }
-    } if (oddCounter <= 1) {
-        return true
-    } else {
-        return false
+        if (T[i] !== "#") {
+            //if value@i is #, pop from created array 
+            arrayT.push(T[i])
+        }
+        else if (T[i] === "#") {
+            arrayT.pop()
+        }
+        i++
     }
+    //compare lengths of arrays if !=, dont need to compare anymore
+    if (arrayS.length !== arrayT.length) {
+        return false;
+    }
+    else {
+        //else...would have to be able to compare them...compare strings?
+        if (arrayS.toString() === arrayT.toString()) {
+            return true;
+        }
+        else {
+            return false
+        }
+
+    }
+    // console.log("arrayS", arrayS)
+    // console.log("arrayT", arrayT)
 }
 
-
-// canBecomePalindrome(str1);
-// canBecomePalindrome(str2);
-// canBecomePalindrome(str3);
-// canBecomePalindrome(str4);
-// canBecomePalindrome(str5);
-// canBecomePalindrome(str6);
-
-console.log(canBecomePalindrome(str1) === expected1); // false
-console.log(canBecomePalindrome(str2) === expected2); // true
-console.log(canBecomePalindrome(str3) === expected3); // true
-console.log(canBecomePalindrome(str4) === expected4); // true
-console.log(canBecomePalindrome(str5) === expected5); // true
-console.log(canBecomePalindrome(str6)); // false
+console.log(backspaceStringCompare(S1, T1))
