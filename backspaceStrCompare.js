@@ -5,7 +5,7 @@
 ████████╗
 ╚██╔═██╔╝
  ╚═╝ ╚═╝ 
-         
+
     Given two 🎻 strings S and T containing only lowercase letters and "#" characters,
     return if they are equal when both are typed into empty text editors.
     👉 '#' character means a 'backspace' character.
@@ -67,31 +67,32 @@ function backspaceStringCompare(S, T) {
             //if value@ i is char, push to array 
             arrayS.push(S[i])
         }
-        else if(S[i]==="#"){
+        else if (S[i] === "#") {
             arrayS.pop()
         }
         if (T[i] !== "#") {
-            //if value@i is #, pop from created array 
+            //if value is not # push to array T
             arrayT.push(T[i])
         }
-        else if(T[i]==="#"){
+        else if (T[i] === "#") {
+            //if value@i is #, pop from created array 
             arrayT.pop()
         }
         i++
     }
     //compare lengths of arrays if !=, dont need to compare anymore
-    if(arrayS.length !== arrayT.length){
+    if (arrayS.length !== arrayT.length) {
         return false;
     }
-    else{
+    else {
         //else...would have to be able to compare them...compare strings?
-        if(arrayS.toString() ===arrayT.toString()){
+        if (arrayS.toString() === arrayT.toString()) {
             return true;
         }
-        else{
+        else {
             return false
         }
-           
+
     }
     // console.log("arrayS", arrayS)
     // console.log("arrayT", arrayT)
